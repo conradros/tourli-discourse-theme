@@ -14,32 +14,32 @@ en:
       home_hero_subhead: "One line under the home page headline."
       category_accent_overrides: "JSON map of category slug to accent hex color, overriding the category color in banners."
       destinations: "JSON list of destination metadata (tag, label, country code, accent color, coordinates, blurb). Card visuals read this; real topic counts come from live tag data."
-  js:
-    search:
-      title: "Search topics and tags"
-    tourli:
-      new_topic: "New topic"
-      community: "Community"
-      members:
-        other: "%{count} members"
-      creators_only: "creators only"
-      categories_heading: "Categories"
-      creator_lounge_heading: "Creator Lounge"
-      creator_lounge_eyebrow: "Creator Lounge · creators only"
-      quick_links: "Quick links"
-      my_posts: "My posts"
-      bookmarks: "Bookmarks"
-      destinations: "Destinations"
-      tags_suffix: "tags"
-      enter: "Enter"
-      featured_destinations: "Featured destinations"
-      browse_all_destinations: "Browse all destinations"
-      with_activity: "With Activity"
-      all_destination_tags: "All destination tags"
-      no_activity_yet: "No activity yet"
-      topics:
-        other: "%{count} topics"
-      replies:
-        other: "%{count} replies"
-      active_this_week: "%{count} active this week"
-      destinations_subhead: "Every thread in Trip Planning is tagged with a place. These are the tags with conversations going."
+  # Theme's own strings. Stored under theme_translation.{id}.tourli.* and read in
+  # JS/templates via themePrefix (from "virtual:theme"), e.g.
+  # {{i18n (themePrefix "tourli.new_topic")}}.
+  tourli:
+    new_topic: "New topic"
+    community: "Community"
+    members:
+      other: "%{count} members"
+    creators_only: "creators only"
+    categories_heading: "Categories"
+    creator_lounge_heading: "Creator Lounge"
+    creator_lounge_eyebrow: "Creator Lounge · creators only"
+    quick_links: "Quick links"
+    my_posts: "My posts"
+    bookmarks: "Bookmarks"
+    destinations: "Destinations"
+    tags_suffix: "tags"
+    enter: "Enter"
+    featured_destinations: "Featured destinations"
+    browse_all_destinations: "Browse all destinations"
+    with_activity: "With Activity"
+    all_destination_tags: "All destination tags"
+    no_activity_yet: "No activity yet"
+    topics:
+      other: "%{count} topics"
+    replies:
+      other: "%{count} replies"
+    active_this_week: "%{count} active this week"
+    destinations_subhead: "Every thread in Trip Planning is tagged with a place. These are the tags with conversations going."

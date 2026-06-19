@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 import { destinations, fetchTagCounts } from "../lib/tourli-tags";
@@ -38,14 +39,14 @@ export default class TourliDestinations extends Component {
             "tourli.destinations"
           }}</h1>
         <p class="tourli-destinations__subhead">
-          {{i18n "tourli.destinations_subhead"}}
+          {{i18n (themePrefix "tourli.destinations_subhead")}}
         </p>
       </div>
 
       {{#if this.active.length}}
         <section class="tourli-destinations__section">
           <div class="tl-eyebrow tourli-destinations__eyebrow">
-            {{i18n "tourli.with_activity"}}
+            {{i18n (themePrefix "tourli.with_activity")}}
           </div>
           <TourliDestinationCards @destinations={{this.active}} />
         </section>
@@ -53,7 +54,7 @@ export default class TourliDestinations extends Component {
 
       <section class="tourli-destinations__section">
         <div class="tl-eyebrow tourli-destinations__eyebrow">
-          {{i18n "tourli.all_destination_tags"}}
+          {{i18n (themePrefix "tourli.all_destination_tags")}}
         </div>
         <div class="tourli-dest-rows">
           {{#each this.all as |dest|}}
@@ -65,11 +66,11 @@ export default class TourliDestinations extends Component {
               {{#if dest.topicCount}}
                 <span class="tourli-dest-row__count">
                   {{icon "comment"}}
-                  {{i18n "tourli.topics" count=dest.topicCount}}
+                  {{i18n (themePrefix "tourli.topics") count=dest.topicCount}}
                 </span>
               {{else}}
                 <span class="tourli-dest-row__empty">
-                  {{i18n "tourli.no_activity_yet"}}
+                  {{i18n (themePrefix "tourli.no_activity_yet")}}
                 </span>
               {{/if}}
             </a>

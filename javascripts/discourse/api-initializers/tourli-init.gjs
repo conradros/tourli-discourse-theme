@@ -1,8 +1,8 @@
+import { themePrefix } from "virtual:theme";
 import { apiInitializer } from "discourse/lib/api";
 import Category from "discourse/models/category";
 import { i18n } from "discourse-i18n";
 import TourliBanner from "../components/tourli-banner";
-import TourliNewTopicButton from "../components/tourli-new-topic-button";
 import TourliSidebarHeader from "../components/tourli-sidebar-header";
 import {
   creatorCategories,
@@ -60,13 +60,6 @@ export default apiInitializer((api) => {
   const currentUser = api.container.lookup("service:current-user");
 
   injectDestinationTagStyles();
-
-  // -------------------------------------------------------------------------
-  // Header: "New topic" pill, placed just after the search slot (matches mock).
-  // -------------------------------------------------------------------------
-  api.headerIcons.add("tourli-new-topic", TourliNewTopicButton, {
-    after: "search",
-  });
 
   // -------------------------------------------------------------------------
   // Sidebar header: "Tourli Community / N members" above all sections.
@@ -155,11 +148,11 @@ export default apiInitializer((api) => {
       }
 
       get title() {
-        return i18n("tourli.destinations");
+        return i18n(themePrefix("tourli.destinations"));
       }
 
       get text() {
-        return i18n("tourli.destinations");
+        return i18n(themePrefix("tourli.destinations"));
       }
 
       get prefixType() {
@@ -171,7 +164,7 @@ export default apiInitializer((api) => {
       }
 
       get badgeText() {
-        return i18n("tourli.tags_suffix");
+        return i18n(themePrefix("tourli.tags_suffix"));
       }
     };
   }
@@ -190,7 +183,7 @@ export default apiInitializer((api) => {
         }
 
         get text() {
-          return i18n("tourli.categories_heading");
+          return i18n(themePrefix("tourli.categories_heading"));
         }
 
         get displaySection() {
@@ -220,7 +213,7 @@ export default apiInitializer((api) => {
         }
 
         get text() {
-          return i18n("tourli.creator_lounge_heading");
+          return i18n(themePrefix("tourli.creator_lounge_heading"));
         }
 
         get displaySection() {
@@ -256,11 +249,11 @@ export default apiInitializer((api) => {
         }
 
         get title() {
-          return i18n("tourli.my_posts");
+          return i18n(themePrefix("tourli.my_posts"));
         }
 
         get text() {
-          return i18n("tourli.my_posts");
+          return i18n(themePrefix("tourli.my_posts"));
         }
 
         get prefixType() {
@@ -286,11 +279,11 @@ export default apiInitializer((api) => {
         }
 
         get title() {
-          return i18n("tourli.bookmarks");
+          return i18n(themePrefix("tourli.bookmarks"));
         }
 
         get text() {
-          return i18n("tourli.bookmarks");
+          return i18n(themePrefix("tourli.bookmarks"));
         }
 
         get prefixType() {
@@ -308,7 +301,7 @@ export default apiInitializer((api) => {
         }
 
         get text() {
-          return i18n("tourli.quick_links");
+          return i18n(themePrefix("tourli.quick_links"));
         }
 
         get displaySection() {

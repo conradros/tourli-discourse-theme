@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import { htmlSafe } from "@ember/template";
+import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 import { safeColor } from "../lib/tourli-tags";
@@ -48,10 +49,10 @@ export default class TourliDestinationCards extends Component {
             <div class="tourli-dest-card__foot">
               <span class="tourli-dest-card__count">
                 {{icon "comment"}}
-                {{i18n "tourli.topics" count=card.topicCount}}
+                {{i18n (themePrefix "tourli.topics") count=card.topicCount}}
               </span>
               <span class="tourli-dest-card__enter">
-                {{i18n "tourli.enter"}}
+                {{i18n (themePrefix "tourli.enter")}}
                 {{icon "arrow-right"}}
               </span>
             </div>

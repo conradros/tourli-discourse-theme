@@ -19,17 +19,6 @@
     }
   }
 
-  // New topic pill sits inline among the header icons, vertically centered.
-  .d-header-icons .tourli-new-topic {
-    display: flex;
-    align-items: center;
-    margin: 0 0.35em;
-
-    .tourli-new-topic__btn .d-icon {
-      font-size: 0.75em;
-    }
-  }
-
   // Header search field (search_experience = search_field): soft rounded pill.
   .floating-search-input-wrapper,
   .search-input {

@@ -3,6 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 import {
@@ -77,7 +78,7 @@ export default class TourliHome extends Component {
             {{on "click" this.createTopic}}
           >
             {{icon "plus"}}
-            <span>{{i18n "tourli.new_topic"}}</span>
+            <span>{{i18n (themePrefix "tourli.new_topic")}}</span>
           </button>
         {{/if}}
       </section>
@@ -86,10 +87,10 @@ export default class TourliHome extends Component {
         <section class="tourli-section">
           <div class="tourli-section__head">
             <h2 class="tourli-section__title">
-              {{i18n "tourli.featured_destinations"}}
+              {{i18n (themePrefix "tourli.featured_destinations")}}
             </h2>
             <a class="tourli-section__more" href={{this.destinationsUrl}}>
-              {{i18n "tourli.browse_all_destinations"}}
+              {{i18n (themePrefix "tourli.browse_all_destinations")}}
               {{icon "arrow-right"}}
             </a>
           </div>
@@ -100,7 +101,7 @@ export default class TourliHome extends Component {
       <section class="tourli-section">
         <div class="tourli-section__head">
           <h2 class="tourli-section__title">
-            {{i18n "tourli.categories_heading"}}
+            {{i18n (themePrefix "tourli.categories_heading")}}
           </h2>
         </div>
         <TourliCategoryList />

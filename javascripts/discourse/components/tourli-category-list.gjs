@@ -2,9 +2,11 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
+import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { ajax } from "discourse/lib/ajax";
 import { relativeAge } from "discourse/lib/formatter";
+import dReplaceEmoji from "discourse/ui-kit/helpers/d-replace-emoji";
 import { i18n } from "discourse-i18n";
 import { publicCategories } from "../lib/tourli-categories";
 
@@ -36,6 +38,7 @@ export default class TourliCategoryList extends Component {
         replies,
         isIcon,
         iconName: cat.icon,
+        emojiCode: cat.emoji ? `:${cat.emoji}:` : null,
         prefixStyle: htmlSafe(`--tl-accent: #${cat.color}`),
         latest: this.latestByCategory[cat.id],
       };
@@ -84,6 +87,8 @@ export default class TourliCategoryList extends Component {
             <span class="tourli-cat-row__icon" style={{row.prefixStyle}}>
               {{#if row.isIcon}}
                 {{icon row.iconName}}
+              {{else if row.emojiCode}}
+                {{dReplaceEmoji row.emojiCode}}
               {{/if}}
             </span>
             <span class="tourli-cat-row__main">
@@ -97,13 +102,13 @@ export default class TourliCategoryList extends Component {
                 {{#if row.topics}}
                   <span class="tourli-cat-row__stat">
                     {{icon "comment"}}
-                    {{i18n "tourli.topics" count=row.topics}}
+                    {{i18n (themePrefix "tourli.topics") count=row.topics}}
                   </span>
                 {{/if}}
                 {{#if row.replies}}
                   <span class="tourli-cat-row__stat">
                     {{icon "reply"}}
-                    {{i18n "tourli.replies" count=row.replies}}
+                    {{i18n (themePrefix "tourli.replies") count=row.replies}}
                   </span>
                 {{/if}}
               </span>

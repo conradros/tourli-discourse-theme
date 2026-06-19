@@ -3,6 +3,7 @@ import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
+import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 import { destinationFor, safeColor } from "../lib/tourli-tags";
@@ -112,7 +113,7 @@ export default class TourliBanner extends Component {
 
         <div class="tourli-banner__body">
           <nav class="tourli-banner__crumbs">
-            <a href="/">{{i18n "tourli.community"}}</a>
+            <a href="/">{{i18n (themePrefix "tourli.community")}}</a>
             {{icon "angle-right"}}
             <span>{{this.title}}</span>
           </nav>
@@ -120,7 +121,9 @@ export default class TourliBanner extends Component {
           {{#if this.isCreator}}
             <div class="tourli-banner__eyebrow tl-eyebrow">
               {{icon "lock"}}
-              <span>{{i18n "tourli.creator_lounge_eyebrow"}}</span>
+              <span>{{i18n
+                  (themePrefix "tourli.creator_lounge_eyebrow")
+                }}</span>
             </div>
           {{/if}}
 
@@ -133,10 +136,16 @@ export default class TourliBanner extends Component {
           {{#if this.showStats}}
             <div class="tourli-banner__stats tl-mono">
               {{#if this.stats.topics}}
-                <span>{{i18n "tourli.topics" count=this.stats.topics}}</span>
+                <span>{{i18n
+                    (themePrefix "tourli.topics")
+                    count=this.stats.topics
+                  }}</span>
               {{/if}}
               {{#if this.stats.replies}}
-                <span>{{i18n "tourli.replies" count=this.stats.replies}}</span>
+                <span>{{i18n
+                    (themePrefix "tourli.replies")
+                    count=this.stats.replies
+                  }}</span>
               {{/if}}
               {{#if this.stats.week}}
                 <span>{{i18n
@@ -155,7 +164,7 @@ export default class TourliBanner extends Component {
             {{on "click" this.createTopic}}
           >
             {{icon "plus"}}
-            <span>{{i18n "tourli.new_topic"}}</span>
+            <span>{{i18n (themePrefix "tourli.new_topic")}}</span>
           </button>
         {{/if}}
       </div>

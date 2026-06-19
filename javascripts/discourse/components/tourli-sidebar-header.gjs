@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { themePrefix } from "virtual:theme";
 import { ajax } from "discourse/lib/ajax";
 import { i18n } from "discourse-i18n";
 
@@ -34,7 +35,7 @@ export default class TourliSidebarHeader extends Component {
       <div class="tourli-sidebar-header__title">Tourli Community</div>
       {{#if this.memberCount}}
         <div class="tourli-sidebar-header__members">
-          {{i18n "tourli.members" count=this.memberCount}}
+          {{i18n (themePrefix "tourli.members") count=this.memberCount}}
         </div>
       {{/if}}
     </div>
