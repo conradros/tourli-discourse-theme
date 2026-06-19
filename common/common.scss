@@ -1,5 +1,9 @@
 @use "lib/viewport";
 
+// Tourli Community: design tokens + font faces load FIRST so Air's own rules
+// (and the Tourli overrides at the bottom of this file) can read the tokens.
+@import "tourli-tokens";
+
 // custom search banner customizations
 .welcome-banner.--location-above-topic-content .custom-search-banner-wrap {
   color: var(--primary);
@@ -613,3 +617,13 @@ html body #main-outlet {
 .title-voting {
   padding-left: 14px;
 }
+
+// Tourli Community: visual overrides load LAST so they win over Air's rules by
+// load order (no !important needed). All Tourli styling lives in scss/tourli-*.
+@import "tourli-base";
+@import "tourli-header";
+@import "tourli-sidebar";
+@import "tourli-banner";
+@import "tourli-home";
+@import "tourli-destinations";
+@import "tourli-topic-list";

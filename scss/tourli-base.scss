@@ -1,0 +1,113 @@
+// Tourli Community - global type, cream-page / white-card surfaces, helpers.
+// Loads after Air's rules so these win by load order (no !important needed).
+
+// ---------------------------------------------------------------------------
+// Type: body = Libre Franklin, headings = Fraunces.
+// Topic-list titles are <a>, not headings, so they stay on the body font (matches mock).
+// ---------------------------------------------------------------------------
+:root {
+  --font-family: var(--tl-font-body);
+  --heading-font-family: var(--tl-font-display);
+}
+
+html,
+body,
+input,
+button,
+select,
+textarea,
+.btn,
+.d-button-label {
+  font-family: var(--tl-font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--tl-font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+// ---------------------------------------------------------------------------
+// Cream page, white cards. Discourse uses --secondary (white) for content
+// surfaces, so the page wrapper goes cream while rows/cards/sidebar stay white.
+// Don't let the whole app go cream: only the page background + #main-outlet card.
+// ---------------------------------------------------------------------------
+html body:not(.no-ember) {
+  background: var(--tl-cream);
+}
+
+html .background-container {
+  // Air paints a fixed teal ellipse here; flatten it so the cream page shows.
+  background: transparent;
+  clip-path: none;
+}
+
+html body #main-outlet {
+  // Air wraps content in a floating white card; Tourli wants cream behind white
+  // sub-cards (topic rows, category list, destination cards), so flatten it.
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers (used by banner, home, destinations, sidebar components)
+// ---------------------------------------------------------------------------
+.tl-eyebrow {
+  font-family: var(--tl-font-body);
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--tl-teal);
+}
+
+.tl-italic-accent {
+  font-family: var(--tl-font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--tl-teal);
+}
+
+.tl-mono {
+  font-family: var(--tl-font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+// Reusable teal pill button (header New topic, hero/banner actions).
+.tl-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.6em 1.1em;
+  border-radius: var(--tl-radius-pill);
+  background: var(--tl-teal);
+  color: #fff;
+  font-family: var(--tl-font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover,
+  &:focus {
+    background: var(--tl-teal-dark);
+    color: #fff;
+  }
+
+  .d-icon {
+    color: currentcolor;
+  }
+}

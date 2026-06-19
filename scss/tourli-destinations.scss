@@ -1,0 +1,103 @@
+// Tourli Community - Destinations directory (rendered into tags-below-title).
+// The default tag cloud / sort controls are hidden so /tags reads as the
+// "Destinations" page. Admin tag management lives under Admin, and individual
+// non-destination tags stay reachable directly (/tag/bug) and via search.
+.tags-index {
+  .tag-sort-options,
+  .all-tag-lists {
+    display: none;
+  }
+}
+
+.tourli-destinations {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__head {
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--tl-ink);
+  }
+
+  &__subhead {
+    margin: 0.6rem 0 0;
+    max-width: 60ch;
+    font-size: 1rem;
+    color: var(--tl-muted);
+  }
+
+  &__section {
+    margin-top: 2.25rem;
+  }
+
+  &__eyebrow {
+    margin-bottom: 1rem;
+  }
+}
+
+.tourli-dest-rows {
+  overflow: hidden;
+  border: 1px solid var(--tl-border);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-card);
+  box-shadow: var(--tl-shadow-lift);
+}
+
+.tourli-dest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--tl-border);
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--tl-cream);
+  }
+
+  &__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--tl-font-body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--tl-ink);
+
+    .d-icon {
+      color: var(--tl-teal);
+      font-size: 0.85em;
+    }
+  }
+
+  &__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 0.85rem;
+    color: var(--tl-muted);
+
+    .d-icon {
+      font-size: 0.85em;
+      opacity: 0.7;
+    }
+  }
+
+  &__empty {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--tl-muted);
+  }
+}

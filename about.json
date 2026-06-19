@@ -1,16 +1,72 @@
 {
-  "name": "Air Theme",
-  "authors": "Discourse",
-  "about_url": "https://meta.discourse.org/t/discourse-air-theme/197703",
+  "name": "Tourli Community",
+  "authors": "Tourli",
+  "about_url": "https://community.tourli.com",
   "license_url": "https://github.com/discourse/discourse-air/blob/main/LICENSE",
   "components": [
     "https://github.com/discourse/discourse-minimal-category-boxes.git",
     "https://github.com/discourse/discourse-clickable-topic.git"
   ],
   "modifiers": {
-    "serialize_topic_excerpts": true
+    "serialize_topic_excerpts": true,
+    "custom_homepage": true,
+    "svg_icons": [
+      "lock",
+      "map-pin",
+      "location-dot",
+      "thumbtack",
+      "arrow-right",
+      "comment",
+      "reply",
+      "compass",
+      "bookmark",
+      "plus",
+      "angle-right"
+    ]
+  },
+  "assets": {
+    "fraunces-400": "assets/fonts/fraunces-400.woff2",
+    "fraunces-600": "assets/fonts/fraunces-600.woff2",
+    "fraunces-700": "assets/fonts/fraunces-700.woff2",
+    "fraunces-italic": "assets/fonts/fraunces-400-italic.woff2",
+    "libre-franklin-400": "assets/fonts/libre-franklin-400.woff2",
+    "libre-franklin-500": "assets/fonts/libre-franklin-500.woff2",
+    "libre-franklin-600": "assets/fonts/libre-franklin-600.woff2",
+    "libre-franklin-700": "assets/fonts/libre-franklin-700.woff2",
+    "libre-franklin-800": "assets/fonts/libre-franklin-800.woff2",
+    "ibm-plex-mono-400": "assets/fonts/ibm-plex-mono-400.woff2",
+    "ibm-plex-mono-500": "assets/fonts/ibm-plex-mono-500.woff2",
+    "ibm-plex-mono-600": "assets/fonts/ibm-plex-mono-600.woff2"
   },
   "color_schemes": {
+    "Tourli Light": {
+      "primary": "1e1e22",
+      "secondary": "ffffff",
+      "tertiary": "205d5e",
+      "quaternary": "6b7280",
+      "header_background": "ffffff",
+      "header_primary": "1e1e22",
+      "highlight": "d9b34d",
+      "danger": "d05454",
+      "success": "10b981",
+      "love": "ec4899",
+      "selected": "dce8e8",
+      "hover": "f2f0e9"
+    },
+    "Tourli Dark": {
+      "primary": "e8e6e0",
+      "secondary": "14201e",
+      "tertiary": "2d8b8d",
+      "quaternary": "9aa0a6",
+      "header_background": "0d2a2b",
+      "header_primary": "f2f0e9",
+      "highlight": "d9b34d",
+      "danger": "d05454",
+      "success": "10b981",
+      "love": "ec4899",
+      "selected": "183f3d",
+      "hover": "1c3633"
+    },
     "air-light": {
       "primary": "1c1c1c",
       "secondary": "f9fcff",

@@ -1,0 +1,76 @@
+# Tourli Community theme settings.
+# Content is dynamic from the real site categories/tags; these settings classify
+# and decorate that data. Theme settings are PUBLIC (served to the client), so
+# nothing here is a secret; real access control stays in Discourse category
+# group permissions.
+
+creator_group_name:
+  type: string
+  default: "creator_active"
+
+travellers_parent_slug:
+  type: string
+  default: "tourli-travellers"
+
+creator_category_slugs:
+  type: list
+  list_type: compact
+  default: "start-here|guide-workshop|what-should-i-build|selling-and-growth|tourli-help-and-ideas"
+
+featured_destinations:
+  type: list
+  list_type: compact
+  default: "portugal|japan|cape-town"
+
+# Off by default to match the mock (the Latest/Top nav already shows the topic
+# count). Enable to show a topics / replies stats line inside category banners.
+show_header_stats:
+  type: bool
+  default: false
+
+destinations_directory_url:
+  type: string
+  default: "/tags"
+
+home_hero_eyebrow:
+  type: string
+  default: "TOURLI COMMUNITY"
+
+home_hero_headline:
+  type: string
+  default: "Plan it with"
+
+home_hero_accent:
+  type: string
+  default: "people who know the place."
+
+home_hero_subhead:
+  type: string
+  default: "Ask a question, compare notes, and borrow routes that actually got walked."
+
+# JSON map of category slug to accent hex color, overriding the category's own
+# color in banners. Example: {"trip-planning": "#205D5E"}
+category_accent_overrides:
+  type: string
+  default: "{}"
+
+# JSON list of destination metadata. Card visuals + the all-tags list read this;
+# real topic counts come from the live tag data. lat/lng are display strings
+# (include the hemisphere). color is validated as a hex value before use.
+destinations:
+  type: string
+  default: |
+    [
+      {"tag":"portugal","label":"Portugal","code":"PT","color":"#205D5E","lat":"38.7223° N","lng":"9.1393° W","blurb":"Tiled hills, grilled fish, and a coast that keeps going."},
+      {"tag":"japan","label":"Japan","code":"JP","color":"#4A2A3A","lat":"35.6762° N","lng":"139.6503° E","blurb":"Slow trains, fast cities, and the world's most over-planned two weeks."},
+      {"tag":"cape-town","label":"Cape Town","code":"ZA","color":"#4A3326","lat":"33.9249° S","lng":"18.4241° E","blurb":"A mountain in the middle of the city, two oceans on the edges, and a food scene that punches above its size."},
+      {"tag":"italy","label":"Italy","code":"IT","color":"#7C3AED","lat":"41.9028° N","lng":"12.4964° E","blurb":"Ruins, espresso, and three lifetimes of art in one boot."},
+      {"tag":"mexico-city","label":"Mexico City","code":"MX","color":"#F97316","lat":"19.4326° N","lng":"99.1332° W","blurb":"Tacos at midnight, museums by day, and a city that never quite sleeps."},
+      {"tag":"vietnam","label":"Vietnam","code":"VN","color":"#10B981","lat":"14.0583° N","lng":"108.2772° E","blurb":"Motorbikes, noodle soup, and a coastline that runs for a thousand miles."},
+      {"tag":"morocco","label":"Morocco","code":"MA","color":"#B45309","lat":"31.7917° N","lng":"7.0926° W","blurb":"Souks, sand, and mint tea poured from a great height."},
+      {"tag":"iceland","label":"Iceland","code":"IS","color":"#2D8B8D","lat":"64.9631° N","lng":"19.0208° W","blurb":"Waterfalls, lava fields, and daylight that forgets to end."},
+      {"tag":"thailand","label":"Thailand","code":"TH","color":"#EC4899","lat":"15.8700° N","lng":"100.9925° E","blurb":"Temples, street food, and islands you will not want to leave."},
+      {"tag":"greece","label":"Greece","code":"GR","color":"#2563EB","lat":"37.9838° N","lng":"23.7275° E","blurb":"Whitewashed islands, long lunches, and ruins with a sea view."},
+      {"tag":"peru","label":"Peru","code":"PE","color":"#D97706","lat":"12.0464° S","lng":"77.0428° W","blurb":"High passes, old stones, and the best potatoes on earth."},
+      {"tag":"georgia","label":"Georgia","code":"GE","color":"#6366F1","lat":"41.7151° N","lng":"44.8271° E","blurb":"Mountains, monasteries, and wine older than most countries."}
+    ]

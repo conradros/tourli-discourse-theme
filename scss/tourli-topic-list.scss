@@ -1,0 +1,26 @@
+// Tourli Community - topic-row tag chips. All tags become muted pills; the
+// destination tag is promoted (teal + pin + ordered first) via CSS injected from
+// the settings destination list in tourli-init.gjs (tag names are dynamic).
+.topic-list {
+  .discourse-tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    align-items: center;
+  }
+
+  .discourse-tag {
+    padding: 0.15em 0.6em;
+    border-radius: var(--tl-radius-pill);
+    background: var(--tl-cream);
+    color: var(--tl-muted);
+    font-size: 0.76rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--tl-ink);
+      background: color-mix(in srgb, var(--tl-muted) 16%, transparent);
+    }
+  }
+}

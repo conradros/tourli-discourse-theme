@@ -1,0 +1,342 @@
+// Tourli Community - custom homepage (hero + featured destinations + categories)
+// plus the shared destination-card styles (also used by the directory).
+.tourli-home {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+// ---------------------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------------------
+.tourli-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.5rem 0 1.5rem;
+
+  &__eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  &__headline {
+    margin: 0;
+    max-width: 16ch;
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--tl-ink);
+  }
+
+  &__subhead {
+    margin: 1rem 0 0;
+    font-size: 1.05rem;
+    color: var(--tl-muted);
+  }
+
+  &__action {
+    flex: none;
+    margin-top: 0.5rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Section headers
+// ---------------------------------------------------------------------------
+.tourli-section {
+  margin-top: 2.5rem;
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.1rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--tl-ink);
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--tl-ink);
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    .d-icon {
+      font-size: 0.8em;
+    }
+
+    &:hover {
+      color: var(--tl-teal);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Destination cards (shared: home row + directory "With Activity")
+// ---------------------------------------------------------------------------
+.tourli-dest-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.tourli-dest-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--tl-border);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-card);
+  box-shadow: var(--tl-shadow-lift);
+  text-decoration: none;
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    box-shadow: var(--tl-shadow-pop);
+    transform: translateY(-2px);
+  }
+
+  &__band {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 132px;
+    padding: 1rem 1.25rem;
+    color: #fff;
+    background: linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--tl-card-accent) 90%, #000),
+      color-mix(in srgb, var(--tl-card-accent) 65%, #000)
+    );
+  }
+
+  &__code {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    padding: 0.2em 0.6em;
+    border: 1px solid rgb(255, 255, 255, 0.5);
+    border-radius: var(--tl-radius-pill);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: #fff;
+  }
+
+  &__coords {
+    position: absolute;
+    top: 0.95rem;
+    left: 1.25rem;
+    font-size: 0.62rem;
+    color: rgb(255, 255, 255, 0.65);
+  }
+
+  &__label {
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem 1.25rem 1.1rem;
+  }
+
+  &__blurb {
+    flex: 1;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--tl-muted);
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--tl-border);
+    font-size: 0.85rem;
+  }
+
+  &__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: var(--tl-muted);
+
+    .d-icon {
+      font-size: 0.85em;
+      opacity: 0.7;
+    }
+  }
+
+  &__enter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: var(--tl-teal);
+    font-weight: 600;
+
+    .d-icon {
+      font-size: 0.8em;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Home "Categories" list
+// ---------------------------------------------------------------------------
+.tourli-cat-list {
+  overflow: hidden;
+  border: 1px solid var(--tl-border);
+  border-radius: var(--tl-radius-lg);
+  background: var(--tl-card);
+  box-shadow: var(--tl-shadow-lift);
+}
+
+.tourli-cat-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 1.5rem;
+  border-bottom: 1px solid var(--tl-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__lead {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+    min-width: 0;
+    text-decoration: none;
+  }
+
+  &__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: var(--tl-radius-md);
+    color: var(--tl-accent);
+    background: color-mix(in srgb, var(--tl-accent) 14%, transparent);
+
+    .d-icon {
+      font-size: 1rem;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  &__title {
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--tl-ink);
+  }
+
+  &__desc {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--tl-muted);
+  }
+
+  &__stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--tl-muted);
+  }
+
+  &__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+
+    .d-icon {
+      font-size: 0.85em;
+      opacity: 0.7;
+    }
+  }
+
+  &__latest {
+    display: flex;
+    flex: none;
+    gap: 0.6rem;
+    align-items: flex-start;
+    width: 240px;
+    text-decoration: none;
+  }
+
+  &__avatar {
+    flex: none;
+    border-radius: 50%;
+  }
+
+  &__latest-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__latest-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--tl-ink);
+  }
+
+  &__latest-meta {
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    color: var(--tl-muted);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
+@media screen and (width <= 880px) {
+  .tourli-dest-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (width <= 760px) {
+  .tourli-hero {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tourli-cat-row__latest {
+    display: none;
+  }
+}

@@ -1,0 +1,52 @@
+// Tourli Community - header: wordmark + "Community" label, search field, New topic pill.
+.d-header {
+  // "Tourli [logo] | Community" - the logo is the admin-set site logo; we append
+  // the "Community" label with a hairline divider next to it.
+  .home-logo-wrapper-outlet {
+    display: inline-flex;
+    align-items: center;
+
+    &::after {
+      content: "Community";
+      margin-left: 0.85rem;
+      padding-left: 0.85rem;
+      border-left: 1px solid var(--tl-border);
+      font-family: var(--tl-font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1;
+      color: var(--tl-ink);
+    }
+  }
+
+  // New topic pill sits inline among the header icons, vertically centered.
+  .d-header-icons .tourli-new-topic {
+    display: flex;
+    align-items: center;
+    margin: 0 0.35em;
+
+    .tourli-new-topic__btn .d-icon {
+      font-size: 0.75em;
+    }
+  }
+
+  // Header search field (search_experience = search_field): soft rounded pill.
+  .floating-search-input-wrapper,
+  .search-input {
+    border-radius: var(--tl-radius-pill);
+    background: var(--tl-cream);
+    border: 1px solid transparent;
+
+    &:focus-within {
+      border-color: var(--tl-border);
+      background: var(--tl-card);
+    }
+  }
+}
+
+// On narrow widths the divider/label crowds the bar; drop the label first.
+@media screen and (width <= 760px) {
+  .d-header .home-logo-wrapper-outlet::after {
+    display: none;
+  }
+}

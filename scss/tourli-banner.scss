@@ -1,0 +1,141 @@
+// Tourli Community - banner-header component (category + tag pages).
+// Rendered into discovery-list-controls-above, above the Latest/Top nav.
+.tourli-banner {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.25rem 0 1.5rem;
+  margin-bottom: 0.25rem;
+
+  &__texture {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(var(--tl-border) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(
+      ellipse 55% 80% at 100% 0%,
+      #000 0%,
+      transparent 70%
+    );
+    opacity: 0.3;
+  }
+
+  &__body {
+    position: relative;
+    z-index: 1;
+    max-width: 62ch;
+  }
+
+  &__crumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-bottom: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--tl-muted);
+
+    a {
+      color: var(--tl-muted);
+
+      &:hover {
+        color: var(--tl-teal);
+      }
+    }
+
+    .d-icon {
+      font-size: 0.7em;
+      opacity: 0.6;
+    }
+
+    span {
+      color: var(--tl-ink);
+      font-weight: 500;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-bottom: 0.6rem;
+    color: var(--tl-gold-ink);
+
+    .d-icon {
+      font-size: 0.9em;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--tl-ink);
+  }
+
+  &__subhead {
+    margin: 0.6rem 0 0;
+    font-size: 1rem;
+    color: var(--tl-muted);
+  }
+
+  &__stats {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 0.9rem;
+    font-size: 0.78rem;
+    color: var(--tl-muted);
+  }
+
+  &__action {
+    flex: none;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    white-space: nowrap;
+  }
+
+  // Creator categories get a slightly darker, tinted band (mock direction).
+  &--creator {
+    padding: 1.75rem;
+    border-radius: var(--tl-radius-lg);
+    background: color-mix(
+      in srgb,
+      var(--tl-banner-accent) 10%,
+      var(--tl-cream)
+    );
+    border: 1px solid
+      color-mix(in srgb, var(--tl-banner-accent) 22%, transparent);
+  }
+}
+
+// Discovery nav below the banner: Latest/Top as pills, hide redundant drop-downs
+// (the sidebar is the category nav; the banner provides context).
+.list-controls {
+  .category-breadcrumb {
+    display: none;
+  }
+
+  .nav-pills > li > a {
+    border-radius: var(--tl-radius-pill);
+    font-weight: 600;
+
+    &.active {
+      background: var(--tl-ink);
+      color: #fff;
+    }
+  }
+}
+
+@media screen and (width <= 760px) {
+  .tourli-banner {
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+}

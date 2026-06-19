@@ -1,0 +1,116 @@
+// Tourli Community - two-section sidebar (flat, white, full height) over Air's
+// floating treatment. Sections are built dynamically in tourli-init.gjs.
+// `body` / `html` prefixes raise specificity above Air's desktop sidebar rules
+// (scss/sidebar-desktop.scss), which load after common.scss on desktop.
+body #main-outlet-wrapper .sidebar-wrapper {
+  // Flatten Air's floating, rounded, shadowed sidebar into a flush white column.
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  border-right: 1px solid var(--tl-border);
+  background: var(--tl-card);
+  top: var(--header-offset);
+  height: calc(100vh - var(--header-offset));
+}
+
+// Air fades the sidebar footer with a gradient; not wanted on the flat sidebar.
+html .desktop-view .sidebar-footer-wrapper .sidebar-footer-container::before {
+  background: transparent;
+}
+
+// Core filter box / default sections are not part of the curated Tourli sidebar.
+.sidebar-filter {
+  display: none;
+}
+
+.sidebar-section-wrapper[data-section-name="community"],
+.sidebar-section-wrapper[data-section-name="categories"],
+.sidebar-section-wrapper[data-section-name="tags"],
+.sidebar-section-wrapper[data-section-name="messages"],
+.sidebar-section-wrapper[data-section-name="chat-channels"],
+.sidebar-section-wrapper[data-section-name="chat-dms"] {
+  display: none;
+}
+
+// ---------------------------------------------------------------------------
+// Member-count header (before-sidebar-sections outlet)
+// ---------------------------------------------------------------------------
+.tourli-sidebar-header {
+  padding: 1.35rem 1rem 0.85rem;
+  border-bottom: 1px solid var(--tl-border);
+  margin-bottom: 0.5rem;
+
+  &__title {
+    font-family: var(--tl-font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: var(--tl-ink);
+  }
+
+  &__members {
+    margin-top: 0.2rem;
+    font-family: var(--tl-font-body);
+    font-size: 0.8rem;
+    color: var(--tl-muted);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Section headers (eyebrow style) + Tourli links
+// ---------------------------------------------------------------------------
+.sidebar-section-wrapper[data-section-name^="tourli-"] {
+  .sidebar-section-header-text {
+    font-family: var(--tl-font-body);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--tl-muted);
+  }
+
+  // Total topic_count shown as a plain muted number on the right (mock).
+  .sidebar-section-link-content-badge {
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    color: var(--tl-muted);
+    font-family: var(--tl-font-body);
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  // Active category gets a soft gold highlight (mock: Trip Planning).
+  .sidebar-section-link.active {
+    background: rgb(217, 179, 77, 0.16);
+
+    .sidebar-section-link-content-text {
+      color: var(--tl-ink);
+      font-weight: 600;
+    }
+  }
+}
+
+// Quick links (My posts / Bookmarks): no visible section header (mock).
+.sidebar-section-wrapper[data-section-name="tourli-quick-links"] {
+  .sidebar-section-header-wrapper {
+    display: none;
+  }
+}
+
+// Creator Lounge header: lock glyph + "creators only" tag (mock).
+.sidebar-section-wrapper[data-section-name="tourli-creator-lounge"] {
+  .sidebar-section-header-text::after {
+    content: "creators only";
+    margin-left: 0.5em;
+    padding-left: 1em;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    text-transform: none;
+    color: var(--tl-gold-ink);
+    background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20448%20512'%3E%3Cpath%20fill='%238b6914'%20d='M144%20144c0-44.2%2035.8-80%2080-80s80%2035.8%2080%2080v48H144v-48zm-64%2048v-48C80%2064.5%20144.5%200%20224%200s144%2064.5%20144%20144v48h16c35.3%200%2064%2028.7%2064%2064v192c0%2035.3-28.7%2064-64%2064H64c-35.3%200-64-28.7-64-64V256c0-35.3%2028.7-64%2064-64h16z'/%3E%3C/svg%3E")
+      no-repeat left center;
+    background-size: 0.7em;
+  }
+}
