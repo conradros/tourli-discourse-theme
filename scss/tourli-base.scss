@@ -55,6 +55,12 @@ html body #main-outlet {
   border-radius: 0;
 }
 
+// Hide the "Powered by Discourse" badge in the footer (rendered in the app
+// template). Tourli has its own footer treatment.
+.powered-by-discourse {
+  display: none;
+}
+
 // ---------------------------------------------------------------------------
 // Helpers (used by banner, home, destinations, sidebar components)
 // ---------------------------------------------------------------------------

@@ -1,0 +1,16 @@
+// Tourli Community - admin area. The admin content renders in a .boxed.white
+// card whose inner wrapper (.admin-contents) ships with no horizontal/top
+// padding, so on the cream page the text sits flush against the white card edge.
+// Add inner padding and finish the card to match the rest of the theme. Scoped
+// to body.admin-interface so it only touches the admin section.
+body.admin-interface {
+  .admin-content {
+    border: 1px solid var(--tl-border);
+    border-radius: var(--tl-radius-lg);
+    box-shadow: var(--tl-shadow-lift);
+
+    .admin-contents {
+      padding: 1.75rem 2rem 2rem;
+    }
+  }
+}

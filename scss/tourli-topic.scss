@@ -1,0 +1,15 @@
+// Tourli Community - topic page: the post stream sits flat on the cream page, so
+// give each post its own white card (matching the rest of the theme's surfaces).
+// Small actions (topic closed, pinned, user joined) render as article.small-action
+// rather than article.boxed, so they stay flat without a card.
+.post-stream .topic-post {
+  margin-bottom: 1rem;
+
+  article.boxed {
+    padding: 1.25rem 1.5rem;
+    background: var(--tl-card);
+    border: 1px solid var(--tl-border);
+    border-radius: var(--tl-radius-lg);
+    box-shadow: var(--tl-shadow-lift);
+  }
+}
