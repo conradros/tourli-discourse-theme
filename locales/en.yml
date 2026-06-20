@@ -45,5 +45,7 @@ en:
     replies:
       one: "%{count} reply"
       other: "%{count} replies"
-    active_this_week: "%{count} active this week"
+    active_this_week:
+      one: "%{count} active this week"
+      other: "%{count} active this week"
     destinations_subhead: "Every thread in Trip Planning is tagged with a place. These are the tags with conversations going."

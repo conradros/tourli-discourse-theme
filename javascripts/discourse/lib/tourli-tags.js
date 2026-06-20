@@ -114,7 +114,9 @@ async function fetchTagCounts() {
   (data?.extras?.tag_groups || []).forEach((g) => lists.push(g.tags || []));
   lists.forEach((list) =>
     list.forEach((t) => {
-      const tagName = t.id ?? t.name;
+      // /tags.json tag objects expose a numeric `id` and a string `name`; key by
+      // name so lookups by tag name (from the tag-group endpoint) hit.
+      const tagName = t.name ?? t.id;
       if (tagName != null) {
         counts.set(tagName, t.count ?? 0);
       }
@@ -140,22 +142,32 @@ export function fetchDestinations() {
       // Counts are non-fatal; destinations still render with 0.
     }
 
+    let result = [];
     try {
       const groupTags = await fetchGroupTags();
       if (groupTags.length) {
-        return groupTags.map((t) => decorate(t, counts.get(t.name)));
+        result = groupTags.map((t) => decorate(t, counts.get(t.name)));
       }
     } catch {
       // Fall through to the configured-and-real fallback below.
     }
 
-    // Fallback: configured tags that exist in the live tag list (real counts,
-    // legacy slug links that the site redirects to the canonical tag URL).
-    return [...overlay().keys()]
-      .filter((tag) => counts.has(tag))
-      .map((tag) =>
-        decorate({ name: tag, slug: tag, id: null }, counts.get(tag))
-      );
+    if (!result.length) {
+      // Fallback: configured tags that exist in the live tag list (real counts,
+      // legacy slug links that the site redirects to the canonical tag URL).
+      result = [...overlay().keys()]
+        .filter((tag) => counts.has(tag))
+        .map((tag) =>
+          decorate({ name: tag, slug: tag, id: null }, counts.get(tag))
+        );
+    }
+
+    // Don't cache an empty result (typically a transient fetch failure) so the
+    // next visit retries instead of showing nothing for the whole session.
+    if (!result.length) {
+      _destinationsPromise = null;
+    }
+    return result;
   })();
   return _destinationsPromise;
 }
