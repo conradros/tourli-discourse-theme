@@ -121,14 +121,26 @@
     display: none;
   }
 
+  // Active filter pill. Use a soft teal tint with teal text rather than white on
+  // a dark pill: on mobile the nav collapses to a dropdown toggle (a button, not
+  // a filled pill), where white text was left illegible on the cream page.
   .nav-pills > li > a {
     border-radius: var(--tl-radius-pill);
     font-weight: 600;
 
     &.active {
-      background: var(--tl-ink);
-      color: #fff;
+      background: color-mix(in srgb, var(--tl-teal) 14%, transparent);
+      color: var(--tl-teal);
     }
+  }
+
+  // Mobile / collapsed nav renders the active filter as a dropdown toggle
+  // (.list-control-toggle-link). Force the whole trigger (label + chevron) to
+  // dark ink so it stays legible on the cream background.
+  #navigation-bar button:has(.list-control-toggle-link__text),
+  .list-control-toggle-link__text {
+    color: var(--tl-ink);
+    font-weight: 600;
   }
 }
 
