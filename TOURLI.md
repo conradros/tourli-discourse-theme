@@ -25,7 +25,9 @@ and a 14-line import block in `common/common.scss`. `desktop/`, `mobile/`, and
    - Public Travellers categories under a parent category (default slug
      `tourli-travellers`).
    - Creator-only categories (private to the creator group).
-   - A **Destinations** tag group with the place tags.
+   - A **Destinations** tag group with the place tags. The home cards and the
+     directory are populated live from this group (name set by
+     `destinations_tag_group`), so the cards always link to real tags.
 
 ## Theme settings (Admin → Customize → Themes → Tourli Community → Settings)
 
@@ -34,8 +36,9 @@ and a 14-line import block in `common/common.scss`. `desktop/`, `mobile/`, and
 | `creator_group_name` | `creator_active` | Group that sees the Creator Lounge sidebar + creator banner styling |
 | `travellers_parent_slug` | `tourli-travellers` | Parent of the public CATEGORIES section |
 | `creator_category_slugs` | 5 creator slugs | Categories in the Creator Lounge section |
-| `featured_destinations` | `portugal\|japan\|cape-town` | Home + directory "with activity" cards |
-| `destinations` | JSON list | Card visuals + all-tags labels (tag, label, code, color, lat, lng, blurb) |
+| `destinations_tag_group` | `Destinations` | Tag group that supplies the live destination list, slugs, and counts |
+| `featured_destinations` | `portugal\|japan\|cape-town` | Featured order on the home row (skipped if not in the live group; falls back to most active) |
+| `destinations` | JSON list | Optional visuals overlaid by tag slug (label, code, color, lat, lng, blurb); does not define the list |
 | `show_header_stats` | `false` | Optional topics/replies line in category banners |
 | `destinations_directory_url` | `/tags` | Where the Destinations link points |
 | `home_hero_*` | mock copy | Hero eyebrow / headline / accent / subhead |
@@ -54,3 +57,9 @@ and a 14-line import block in `common/common.scss`. `desktop/`, `mobile/`, and
   Admin tag management still lives under Admin, and non-destination tags
   (`bug`, `feature-request`, `how-to`) remain reachable directly (e.g. `/tag/bug`)
   and via search.
+- **Destinations are read from the live tag group**, not hardcoded. The list and
+  numeric tag ids come from `GET /tag_groups/filter/search` (the group named by
+  `destinations_tag_group`); counts come from `/tags.json`. Cards link to the
+  canonical `/tag/<slug>/<id>` URL. The `destinations` setting only decorates a
+  matching tag; tags in the group without an entry get a humanized label and the
+  default accent.

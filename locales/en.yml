@@ -4,8 +4,9 @@ en:
     settings:
       creator_group_name: "Group whose members see the Creator Lounge sidebar section and the creator banner styling. Real access is still controlled by Discourse category group permissions, not by this setting."
       travellers_parent_slug: "Slug of the parent category whose child categories make up the public CATEGORIES sidebar section and home Categories list."
+      destinations_tag_group: "Name of the tag group whose tags are shown as destinations. The list, slugs, and counts are read live from this group."
       creator_category_slugs: "Category slugs that make up the Creator Lounge section."
-      featured_destinations: "Ordered destination tag slugs shown as cards on the home page and the Destinations directory With Activity row."
+      featured_destinations: "Ordered destination tag slugs featured on the home page. Tags that are not in the live group are skipped; if none match, the most active destinations are shown."
       show_header_stats: "Show the topics and replies stats row in category and tag banners."
       destinations_directory_url: "Where the sidebar Destinations link and the Browse all destinations link point."
       home_hero_eyebrow: "Small uppercase overline above the home page headline."
@@ -13,7 +14,7 @@ en:
       home_hero_accent: "Accent words of the headline, shown in italic teal."
       home_hero_subhead: "One line under the home page headline."
       category_accent_overrides: "JSON map of category slug to accent hex color, overriding the category color in banners."
-      destinations: "JSON list of destination metadata (tag, label, country code, accent color, coordinates, blurb). Card visuals read this; real topic counts come from live tag data."
+      destinations: "Optional visuals for destination tags (tag, label, country code, accent color, coordinates, blurb), matched by tag slug. The destination list itself comes from the live tag group; entries here only decorate matching tags."
   # Theme's own strings. Stored under theme_translation.{id}.tourli.* and read in
   # JS/templates via themePrefix (from "virtual:theme"), e.g.
   # {{i18n (themePrefix "tourli.new_topic")}}.

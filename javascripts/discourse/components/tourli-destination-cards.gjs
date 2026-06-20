@@ -19,7 +19,7 @@ export default class TourliDestinationCards extends Component {
         blurb: d.blurb,
         topicCount: d.topicCount ?? 0,
         coords: [d.lat, d.lng].filter(Boolean).join(", "),
-        href: `/tag/${d.tag}`,
+        href: d.url || `/tag/${d.tag}`,
         style: htmlSafe(`--tl-card-accent: ${accent}`),
       };
     });

@@ -6,11 +6,7 @@ import { service } from "@ember/service";
 import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
-import {
-  destinationFor,
-  featuredTags,
-  fetchTagCounts,
-} from "../lib/tourli-tags";
+import { featuredTags, fetchDestinations } from "../lib/tourli-tags";
 import TourliCategoryList from "./tourli-category-list";
 import TourliDestinationCards from "./tourli-destination-cards";
 
@@ -28,16 +24,16 @@ export default class TourliHome extends Component {
   }
 
   async loadFeatured() {
-    const counts = await fetchTagCounts();
-    this.featured = featuredTags()
-      .map((tag) => {
-        const dest = destinationFor(tag);
-        if (!dest) {
-          return null;
-        }
-        return { ...dest, topicCount: counts.get(tag) ?? 0 };
-      })
+    const all = await fetchDestinations();
+    const byTag = new Map(all.map((d) => [d.tag, d]));
+    const ordered = featuredTags()
+      .map((tag) => byTag.get(tag))
       .filter(Boolean);
+    // Configured featured order, intersected with real tags. If none of the
+    // featured tags exist, show the three most active destinations instead.
+    this.featured = ordered.length
+      ? ordered
+      : [...all].sort((a, b) => b.topicCount - a.topicCount).slice(0, 3);
   }
 
   get destinationsUrl() {

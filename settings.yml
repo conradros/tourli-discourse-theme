@@ -12,6 +12,13 @@ travellers_parent_slug:
   type: string
   default: "tourli-travellers"
 
+# Name of the tag group whose tags are shown as destinations on the home page
+# and the Destinations directory. The list, slugs, and counts are read live from
+# this group; the destinations setting below only adds optional visuals.
+destinations_tag_group:
+  type: string
+  default: "Destinations"
+
 creator_category_slugs:
   type: list
   list_type: compact
@@ -54,9 +61,11 @@ category_accent_overrides:
   type: string
   default: "{}"
 
-# JSON list of destination metadata. Card visuals + the all-tags list read this;
-# real topic counts come from the live tag data. lat/lng are display strings
-# (include the hemisphere). color is validated as a hex value before use.
+# Optional visuals for destination tags, matched to a tag by its slug. The list
+# of destinations itself comes from the live destinations_tag_group; any tag in
+# that group without an entry here gets a humanized label and the default accent.
+# lat/lng are display strings (include the hemisphere). color is validated as a
+# hex value before use.
 destinations:
   type: string
   default: |

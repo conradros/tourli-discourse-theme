@@ -25,7 +25,11 @@ export default class TourliBanner extends Component {
     if (!tag) {
       return null;
     }
-    return typeof tag === "string" ? tag : (tag.id ?? tag.name ?? null);
+    // On a tag page @model.tag is a Tag model whose id is numeric; use the name
+    // (matches the overlay keys and reads as the place name, not "6").
+    return typeof tag === "string"
+      ? tag
+      : (tag.name ?? tag.slug ?? tag.id ?? null);
   }
 
   get show() {

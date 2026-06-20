@@ -3,14 +3,15 @@ import { tracked } from "@glimmer/tracking";
 import { themePrefix } from "virtual:theme";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
-import { destinations, fetchTagCounts } from "../lib/tourli-tags";
+import { fetchDestinations } from "../lib/tourli-tags";
 import TourliDestinationCards from "./tourli-destination-cards";
 
 // Destinations directory, rendered into the tags-below-title outlet (/tags).
 // "With Activity" reuses the shared cards; "All destination tags" lists every
-// configured destination with its real topic count or "No activity yet".
+// tag in the live Destinations group with its real topic count or "No activity
+// yet".
 export default class TourliDestinations extends Component {
-  @tracked counts = new Map();
+  @tracked all = [];
 
   constructor() {
     super(...arguments);
@@ -18,14 +19,7 @@ export default class TourliDestinations extends Component {
   }
 
   async load() {
-    this.counts = await fetchTagCounts();
-  }
-
-  get all() {
-    return destinations().map((d) => ({
-      ...d,
-      topicCount: this.counts.get(d.tag) ?? 0,
-    }));
+    this.all = await fetchDestinations();
   }
 
   get active() {
@@ -58,7 +52,7 @@ export default class TourliDestinations extends Component {
         </div>
         <div class="tourli-dest-rows">
           {{#each this.all as |dest|}}
-            <a class="tourli-dest-row" href="/tag/{{dest.tag}}">
+            <a class="tourli-dest-row" href={{dest.url}}>
               <span class="tourli-dest-row__name">
                 {{icon "map-pin"}}
                 {{dest.label}}

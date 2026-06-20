@@ -9,19 +9,23 @@ import {
   publicCategories,
   userInCreatorGroup,
 } from "../lib/tourli-categories";
-import { destinations } from "../lib/tourli-tags";
+import { destinationTagNames } from "../lib/tourli-tags";
 
 // Promote destination tags on topic rows: a pin glyph, teal chip, and ordered
-// first. Tag names are dynamic (settings), so the CSS is generated from the
-// destination list and injected once. Sanitized to slug characters.
-function injectDestinationTagStyles() {
+// first. The tag list comes from the live Destinations group, so the CSS is
+// generated once after that resolves. Sanitized to slug characters.
+async function injectDestinationTagStyles() {
   if (document.getElementById("tourli-destination-tags")) {
     return;
   }
-  const tags = destinations()
-    .map((d) => d.tag)
-    .filter((t) => /^[a-z0-9-]+$/i.test(t));
-  if (!tags.length) {
+  let tags = [];
+  try {
+    tags = await destinationTagNames();
+  } catch {
+    return;
+  }
+  tags = tags.filter((t) => /^[a-z0-9-]+$/i.test(t));
+  if (!tags.length || document.getElementById("tourli-destination-tags")) {
     return;
   }
   const selector = (suffix) =>

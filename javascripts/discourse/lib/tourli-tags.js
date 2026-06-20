@@ -1,32 +1,40 @@
-// Destination metadata (from the theme setting) + real tag topic counts.
-// Card visuals come from settings; counts come from live tag data.
+// Destinations are sourced from the real "Destinations" tag group on the site.
+// The list (which tags, their numeric ids, slugs, and topic counts) is live;
+// the theme setting only supplies optional visuals (label, country code, accent
+// color, coordinates, blurb) overlaid onto a matching tag. Tags in the group
+// with no overlay entry get a humanized label and the default accent.
 
 import { ajax } from "discourse/lib/ajax";
+import getURL from "discourse/lib/get-url";
 
-let _destinations = null;
+let _overlay = null;
+let _destinationsPromise = null;
 
-export function destinations() {
-  if (_destinations) {
-    return _destinations;
+// Settings JSON parsed into a Map keyed by tag slug: the visual overlay.
+function overlay() {
+  if (_overlay) {
+    return _overlay;
   }
   const raw = settings.destinations;
+  let list;
   if (Array.isArray(raw)) {
-    _destinations = raw;
+    list = raw;
   } else {
     try {
-      _destinations = JSON.parse(raw || "[]");
+      list = JSON.parse(raw || "[]");
     } catch {
-      _destinations = [];
+      list = [];
     }
   }
-  return _destinations;
+  _overlay = new Map(
+    (list || []).filter((d) => d && d.tag).map((d) => [d.tag, d])
+  );
+  return _overlay;
 }
 
+// Visual overlay for a single tag (used by the banner on tag pages). Synchronous.
 export function destinationFor(tagName) {
-  if (!tagName) {
-    return null;
-  }
-  return destinations().find((d) => d.tag === tagName) || null;
+  return tagName ? overlay().get(tagName) || null : null;
 }
 
 const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
@@ -35,6 +43,10 @@ const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 export function safeColor(value, fallback = "#205d5e") {
   const v = (value || "").trim();
   return HEX_RE.test(v) ? v : fallback;
+}
+
+export function destinationsTagGroupName() {
+  return (settings.destinations_tag_group || "Destinations").trim();
 }
 
 export function featuredTags() {
@@ -47,24 +59,109 @@ export function featuredTags() {
     .filter(Boolean);
 }
 
-// Map of tag name -> real topic count, from /tags.json. Returns an empty Map on
-// failure so callers degrade to "no activity" rather than breaking.
-export async function fetchTagCounts() {
+// "cape-town" -> "Cape Town" for tags without a configured label.
+function humanize(slug) {
+  return String(slug || "")
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+// Build a destination view-model from a real tag, merging the settings overlay.
+function decorate({ name, slug, id }, count) {
+  const useSlug = slug || name;
+  const o = overlay().get(name) || overlay().get(useSlug) || {};
+  const url = id
+    ? getURL(`/tag/${useSlug}/${id}`)
+    : getURL(`/tag/${encodeURIComponent(name)}`);
+  return {
+    tag: name,
+    slug: useSlug,
+    id: id ?? null,
+    url,
+    topicCount: count ?? 0,
+    label: o.label || humanize(name),
+    code: o.code || "",
+    color: o.color || "",
+    lat: o.lat || "",
+    lng: o.lng || "",
+    blurb: o.blurb || "",
+  };
+}
+
+// Members of the configured Destinations tag group: [{ id, name, slug }].
+// Not staff-gated; respects the caller's tag visibility.
+async function fetchGroupTags() {
+  const name = destinationsTagGroupName();
+  const data = await ajax("/tag_groups/filter/search.json", {
+    data: { q: name },
+  });
+  const groups = data?.results || [];
+  const match = groups.find(
+    (g) => (g.name || "").toLowerCase() === name.toLowerCase()
+  );
+  return match?.tags || [];
+}
+
+// Map of tag name -> real topic count, merged from the flat list and every tag
+// group in /tags.json (grouped tags are reported under extras.tag_groups when
+// the site lists tags by group, and under the flat list otherwise).
+async function fetchTagCounts() {
   const counts = new Map();
-  try {
-    const data = await ajax("/tags.json");
-    const lists = [data?.tags || []];
-    (data?.extras?.tag_groups || []).forEach((g) => lists.push(g.tags || []));
-    lists.forEach((list) =>
-      list.forEach((t) => {
-        const name = t.id ?? t.name;
-        if (name != null) {
-          counts.set(name, t.count ?? 0);
-        }
-      })
-    );
-  } catch {
-    // Non-fatal: leave counts empty.
-  }
+  const data = await ajax("/tags.json");
+  const lists = [data?.tags || []];
+  (data?.extras?.tag_groups || []).forEach((g) => lists.push(g.tags || []));
+  lists.forEach((list) =>
+    list.forEach((t) => {
+      const tagName = t.id ?? t.name;
+      if (tagName != null) {
+        counts.set(tagName, t.count ?? 0);
+      }
+    })
+  );
   return counts;
+}
+
+// Live destinations: the real Destinations-group tags, decorated with overlay
+// visuals and real topic counts. If the group can't be read, fall back to the
+// configured tags that actually exist on the site (never link to a dead tag).
+// Cached for the page so the home, directory, and tag-chip styles share one
+// fetch.
+export function fetchDestinations() {
+  if (_destinationsPromise) {
+    return _destinationsPromise;
+  }
+  _destinationsPromise = (async () => {
+    let counts = new Map();
+    try {
+      counts = await fetchTagCounts();
+    } catch {
+      // Counts are non-fatal; destinations still render with 0.
+    }
+
+    try {
+      const groupTags = await fetchGroupTags();
+      if (groupTags.length) {
+        return groupTags.map((t) => decorate(t, counts.get(t.name)));
+      }
+    } catch {
+      // Fall through to the configured-and-real fallback below.
+    }
+
+    // Fallback: configured tags that exist in the live tag list (real counts,
+    // legacy slug links that the site redirects to the canonical tag URL).
+    return [...overlay().keys()]
+      .filter((tag) => counts.has(tag))
+      .map((tag) =>
+        decorate({ name: tag, slug: tag, id: null }, counts.get(tag))
+      );
+  })();
+  return _destinationsPromise;
+}
+
+// Real destination tag names (for promoting destination chips on topic rows).
+export async function destinationTagNames() {
+  const dests = await fetchDestinations();
+  return dests.map((d) => d.tag);
 }
