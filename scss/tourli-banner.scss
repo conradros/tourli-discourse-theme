@@ -1,27 +1,41 @@
 // Tourli Community - banner-header component (category + tag pages).
 // Rendered into discovery-list-controls-above, above the Latest/Top nav.
+// A colored header band: the category/tag accent tints the top and fades down
+// into the cream page (matches the design's PageBanner).
 .tourli-banner {
   position: relative;
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  padding: 2.25rem 0 1.5rem;
-  margin-bottom: 0.25rem;
+  gap: 1.5rem;
+  min-height: 150px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--tl-radius-lg);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tl-banner-accent) 14%, transparent) 0%,
+    color-mix(in srgb, var(--tl-banner-accent) 6%, transparent) 52%,
+    transparent 100%
+  );
 
   &__texture {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: radial-gradient(var(--tl-border) 1px, transparent 1px);
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--tl-banner-accent) 55%, transparent) 1px,
+      transparent 1px
+    );
     background-size: 22px 22px;
     mask-image: radial-gradient(
-      ellipse 55% 80% at 100% 0%,
+      ellipse 60% 90% at 100% 0%,
       #000 0%,
       transparent 70%
     );
-    opacity: 0.3;
+    opacity: 0.45;
   }
 
   &__body {
@@ -73,8 +87,8 @@
     margin: 0;
     font-family: var(--tl-font-display);
     font-weight: 600;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1;
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+    line-height: 1.03;
     letter-spacing: -0.02em;
     color: var(--tl-ink);
   }
@@ -95,22 +109,20 @@
 
   &__action {
     flex: none;
-    align-self: flex-start;
-    margin-top: 0.5rem;
+    align-self: center;
     white-space: nowrap;
   }
 
-  // Creator categories get a slightly darker, tinted band (mock direction).
+  // Creator lounge: a deeper accent that settles toward ink before the page,
+  // distinguishing private categories from public ones.
   &--creator {
-    padding: 1.75rem;
-    border-radius: var(--tl-radius-lg);
-    background: color-mix(
-      in srgb,
-      var(--tl-banner-accent) 10%,
-      var(--tl-cream)
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--tl-banner-accent) 20%, transparent) 0%,
+      color-mix(in srgb, var(--tl-banner-accent) 9%, transparent) 34%,
+      color-mix(in srgb, var(--tl-ink) 6%, transparent) 66%,
+      transparent 100%
     );
-    border: 1px solid
-      color-mix(in srgb, var(--tl-banner-accent) 22%, transparent);
   }
 }
 
@@ -139,7 +151,9 @@
 @media screen and (width <= 760px) {
   .tourli-banner {
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
-    padding-top: 1.5rem;
+    min-height: 0;
+    padding: 1.25rem 1.25rem 1.5rem;
   }
 }
