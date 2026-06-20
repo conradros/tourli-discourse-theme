@@ -1,5 +1,6 @@
 import { themePrefix } from "virtual:theme";
 import { apiInitializer } from "discourse/lib/api";
+import { getReviewBadgeText } from "discourse/lib/sidebar/helpers/review-badge-helper";
 import Category from "discourse/models/category";
 import { i18n } from "discourse-i18n";
 import TourliBanner from "../components/tourli-banner";
@@ -299,6 +300,65 @@ export default apiInitializer((api) => {
         }
       }
 
+      // Staff links live in the default Community section, which Tourli hides, so
+      // re-add Review (for reviewers) and Admin (for staff) here. Mirrors core's
+      // routes/icons; Review carries the pending-count badge.
+      class ReviewLink extends BaseCustomSidebarSectionLink {
+        get name() {
+          return "tourli-review";
+        }
+
+        get route() {
+          return "review";
+        }
+
+        get title() {
+          return i18n(themePrefix("tourli.review"));
+        }
+
+        get text() {
+          return i18n(themePrefix("tourli.review"));
+        }
+
+        get prefixType() {
+          return "icon";
+        }
+
+        get prefixValue() {
+          return "flag";
+        }
+
+        get badgeText() {
+          return getReviewBadgeText(currentUser);
+        }
+      }
+
+      class AdminLink extends BaseCustomSidebarSectionLink {
+        get name() {
+          return "tourli-admin";
+        }
+
+        get route() {
+          return "admin";
+        }
+
+        get title() {
+          return i18n(themePrefix("tourli.admin"));
+        }
+
+        get text() {
+          return i18n(themePrefix("tourli.admin"));
+        }
+
+        get prefixType() {
+          return "icon";
+        }
+
+        get prefixValue() {
+          return "wrench";
+        }
+      }
+
       return class extends BaseCustomSidebarSection {
         get name() {
           return "tourli-quick-links";
@@ -313,7 +373,14 @@ export default apiInitializer((api) => {
         }
 
         get links() {
-          return [new MyPostsLink(), new BookmarksLink()];
+          const links = [new MyPostsLink(), new BookmarksLink()];
+          if (currentUser?.can_review) {
+            links.push(new ReviewLink());
+          }
+          if (currentUser?.staff) {
+            links.push(new AdminLink());
+          }
+          return links;
         }
       };
     }
