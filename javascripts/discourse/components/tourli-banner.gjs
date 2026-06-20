@@ -115,62 +115,64 @@ export default class TourliBanner extends Component {
       >
         <div class="tourli-banner__texture"></div>
 
-        <div class="tourli-banner__body">
-          <nav class="tourli-banner__crumbs">
-            <a href="/">{{i18n (themePrefix "tourli.community")}}</a>
-            {{icon "angle-right"}}
-            <span>{{this.title}}</span>
-          </nav>
+        <div class="tourli-banner__inner container">
+          <div class="tourli-banner__body">
+            <nav class="tourli-banner__crumbs">
+              <a href="/">{{i18n (themePrefix "tourli.community")}}</a>
+              {{icon "angle-right"}}
+              <span>{{this.title}}</span>
+            </nav>
 
-          {{#if this.isCreator}}
-            <div class="tourli-banner__eyebrow tl-eyebrow">
-              {{icon "lock"}}
-              <span>{{i18n
-                  (themePrefix "tourli.creator_lounge_eyebrow")
-                }}</span>
-            </div>
-          {{/if}}
-
-          <h1 class="tourli-banner__title">{{this.title}}</h1>
-
-          {{#if this.subhead}}
-            <p class="tourli-banner__subhead">{{this.subhead}}</p>
-          {{/if}}
-
-          {{#if this.showStats}}
-            <div class="tourli-banner__stats tl-mono">
-              {{#if this.stats.topics}}
+            {{#if this.isCreator}}
+              <div class="tourli-banner__eyebrow tl-eyebrow">
+                {{icon "lock"}}
                 <span>{{i18n
-                    (themePrefix "tourli.topics")
-                    count=this.stats.topics
+                    (themePrefix "tourli.creator_lounge_eyebrow")
                   }}</span>
-              {{/if}}
-              {{#if this.stats.replies}}
-                <span>{{i18n
-                    (themePrefix "tourli.replies")
-                    count=this.stats.replies
-                  }}</span>
-              {{/if}}
-              {{#if this.stats.week}}
-                <span>{{i18n
-                    (themePrefix "tourli.active_this_week")
-                    count=this.stats.week
-                  }}</span>
-              {{/if}}
-            </div>
+              </div>
+            {{/if}}
+
+            <h1 class="tourli-banner__title">{{this.title}}</h1>
+
+            {{#if this.subhead}}
+              <p class="tourli-banner__subhead">{{this.subhead}}</p>
+            {{/if}}
+
+            {{#if this.showStats}}
+              <div class="tourli-banner__stats tl-mono">
+                {{#if this.stats.topics}}
+                  <span>{{i18n
+                      (themePrefix "tourli.topics")
+                      count=this.stats.topics
+                    }}</span>
+                {{/if}}
+                {{#if this.stats.replies}}
+                  <span>{{i18n
+                      (themePrefix "tourli.replies")
+                      count=this.stats.replies
+                    }}</span>
+                {{/if}}
+                {{#if this.stats.week}}
+                  <span>{{i18n
+                      (themePrefix "tourli.active_this_week")
+                      count=this.stats.week
+                    }}</span>
+                {{/if}}
+              </div>
+            {{/if}}
+          </div>
+
+          {{#if this.currentUser}}
+            <button
+              type="button"
+              class="tl-pill-btn tourli-banner__action"
+              {{on "click" this.createTopic}}
+            >
+              {{icon "plus"}}
+              <span>{{i18n (themePrefix "tourli.new_topic")}}</span>
+            </button>
           {{/if}}
         </div>
-
-        {{#if this.currentUser}}
-          <button
-            type="button"
-            class="tl-pill-btn tourli-banner__action"
-            {{on "click" this.createTopic}}
-          >
-            {{icon "plus"}}
-            <span>{{i18n (themePrefix "tourli.new_topic")}}</span>
-          </button>
-        {{/if}}
       </div>
     {{/if}}
   </template>

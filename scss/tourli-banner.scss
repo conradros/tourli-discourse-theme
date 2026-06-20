@@ -1,18 +1,13 @@
 // Tourli Community - banner-header component (category + tag pages).
 // Rendered into discovery-list-controls-above, above the Latest/Top nav.
-// A colored header band: the category/tag accent tints the top and fades down
-// into the cream page (matches the design's PageBanner).
+// A full-bleed colored header band: the accent tints the top and fades down into
+// the cream page (matches the design's PageBanner). The band spans the discovery
+// content width; the inner content rides Discourse's own .container so it lines
+// up with the nav bar and topic list below.
 .tourli-banner {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 150px;
-  padding: 1.75rem 2rem;
   margin-bottom: 0.75rem;
-  border-radius: var(--tl-radius-lg);
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--tl-banner-accent) 14%, transparent) 0%,
@@ -36,6 +31,17 @@
       transparent 70%
     );
     opacity: 0.45;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 150px;
+    padding-block: 1.75rem;
   }
 
   &__body {
@@ -149,11 +155,11 @@
 }
 
 @media screen and (width <= 760px) {
-  .tourli-banner {
+  .tourli-banner__inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
     min-height: 0;
-    padding: 1.25rem 1.25rem 1.5rem;
+    padding-block: 1.25rem 1.5rem;
   }
 }
