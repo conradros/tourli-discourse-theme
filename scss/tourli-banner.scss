@@ -1,13 +1,19 @@
 // Tourli Community - banner-header component (category + tag pages).
 // Rendered into discovery-list-controls-above, above the Latest/Top nav.
 // A full-bleed colored header band: the accent tints the top and fades down into
-// the cream page (matches the design's PageBanner). The band spans the discovery
-// content width; the inner content rides Discourse's own .container so it lines
-// up with the nav bar and topic list below.
+// the cream page (matches the design's PageBanner).
+//
+// Full-bleed: break the band out of #main-outlet's horizontal padding so the
+// gradient reaches the content-column edges. The matching padding-inline on
+// __inner (below) pulls the content back to the column edge, where the nav and
+// topic list sit. -3em mirrors #main-outlet's 3em (common.scss); the em unit
+// matches exactly since both inherit the same font-size. Narrower viewports are
+// handled below (1.5em) and on real mobile in mobile.scss (0.5em).
 .tourli-banner {
   position: relative;
   overflow: hidden;
   margin-bottom: 0.75rem;
+  margin-inline: -3em;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, var(--tl-banner-accent) 14%, transparent) 0%,
@@ -33,6 +39,11 @@
     opacity: 0.45;
   }
 
+  // Reset any core constraint (the .container class is gone, but neutralize
+  // max-width / auto margins defensively) and re-pad to the column edge so the
+  // content left-aligns with the Latest pill and topic rows. padding-inline
+  // cancels the band's negative margin-inline; padding-block-start gives the
+  // breadcrumb room now that the band bleeds to the top.
   &__inner {
     position: relative;
     z-index: 1;
@@ -41,7 +52,10 @@
     justify-content: space-between;
     gap: 1.5rem;
     min-height: 150px;
-    padding-block: 1.75rem;
+    max-width: none;
+    margin-inline: 0;
+    padding-block: 2rem 1.75rem;
+    padding-inline: 3em;
   }
 
   &__body {
@@ -93,7 +107,7 @@
     margin: 0;
     font-family: var(--tl-font-display);
     font-weight: 600;
-    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+    font-size: 2.25rem; // fixed so every category/tag header matches
     line-height: 1.03;
     letter-spacing: -0.02em;
     color: var(--tl-ink);
@@ -132,6 +146,13 @@
   }
 }
 
+// Let the band reach the top edge: drop #main-outlet's top padding only on pages
+// that have the banner. Using :has() (rather than a negative margin-top) stays
+// correct whether the top padding is 3em or the search-banner's 2em.
+html body #main-outlet:has(.tourli-banner) {
+  padding-top: 0;
+}
+
 // Discovery nav below the banner: Latest/Top as pills, hide redundant drop-downs
 // (the sidebar is the category nav; the banner provides context).
 .list-controls {
@@ -161,5 +182,18 @@
     gap: 1rem;
     min-height: 0;
     padding-block: 1.25rem 1.5rem;
+  }
+}
+
+// Desktop-narrow: #main-outlet's horizontal padding drops to 1.5em at <=700px
+// (common.scss). Mirror it so the side-bleed stays flush. Real mobile devices
+// load mobile.scss, which overrides this with the 0.5em mobile padding.
+@media screen and (width <= 700px) {
+  .tourli-banner {
+    margin-inline: -1.5em;
+  }
+
+  .tourli-banner__inner {
+    padding-inline: 1.5em;
   }
 }
