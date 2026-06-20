@@ -21,9 +21,6 @@ en:
   tourli:
     new_topic: "New topic"
     community: "Community"
-    members:
-      one: "%{count} member"
-      other: "%{count} members"
     creators_only: "creators only"
     categories_heading: "Categories"
     creator_lounge_heading: "Creator Lounge"

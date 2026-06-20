@@ -50,11 +50,14 @@ export function publicCategories(site) {
     return site.categories.filter((c) => c.parent_category_id === parent.id);
   }
 
+  // Parent not found, or not visible to this user (an anonymous visitor often
+  // cannot see the Travellers container category even though its children are
+  // public). Fall back to every category the user can actually see that is not
+  // creator-only or a system category. For anonymous and customer visitors this
+  // is exactly the public Travellers set, since creator categories are not in
+  // their site.categories at all.
   return site.categories.filter(
-    (c) =>
-      !c.parent_category_id &&
-      !creatorSet.has(c.slug) &&
-      !SYSTEM_SLUGS.includes(c.slug)
+    (c) => !creatorSet.has(c.slug) && !SYSTEM_SLUGS.includes(c.slug)
   );
 }
 

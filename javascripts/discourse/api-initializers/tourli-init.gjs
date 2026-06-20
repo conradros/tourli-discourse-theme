@@ -67,7 +67,7 @@ export default apiInitializer((api) => {
   injectDestinationTagStyles();
 
   // -------------------------------------------------------------------------
-  // Sidebar header: "Tourli Community / N members" above all sections.
+  // Sidebar header: the "Tourli Community" block above all sections.
   // -------------------------------------------------------------------------
   api.renderInOutlet("before-sidebar-sections", TourliSidebarHeader);
 
@@ -79,8 +79,8 @@ export default apiInitializer((api) => {
   // -------------------------------------------------------------------------
   // Sidebar sections (dynamic from real categories).
   // -------------------------------------------------------------------------
-  // A category link that mirrors core prefix/route behavior but shows the total
-  // topic_count (mock) rather than unread/new counts.
+  // A category link that mirrors core prefix/route behavior. No count badge:
+  // Tourli does not show topic counts in the sidebar.
   function buildCategoryLink(BaseLink) {
     return class extends BaseLink {
       constructor(category) {
@@ -135,8 +135,7 @@ export default apiInitializer((api) => {
       }
 
       get badgeText() {
-        const count = this.category.topic_count;
-        return count != null ? count.toString() : null;
+        return null;
       }
     };
   }

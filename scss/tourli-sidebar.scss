@@ -33,7 +33,7 @@ html .desktop-view .sidebar-footer-wrapper .sidebar-footer-container::before {
 }
 
 // ---------------------------------------------------------------------------
-// Member-count header (before-sidebar-sections outlet)
+// Sidebar header (before-sidebar-sections outlet)
 // ---------------------------------------------------------------------------
 .tourli-sidebar-header {
   padding: 1.35rem 1rem 0.85rem;
@@ -46,13 +46,6 @@ html .desktop-view .sidebar-footer-wrapper .sidebar-footer-container::before {
     font-size: 1.25rem;
     line-height: 1.1;
     color: var(--tl-ink);
-  }
-
-  &__members {
-    margin-top: 0.2rem;
-    font-family: var(--tl-font-body);
-    font-size: 0.8rem;
-    color: var(--tl-muted);
   }
 }
 
