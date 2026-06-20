@@ -104,6 +104,20 @@ ol.category-breadcrumb {
   border-radius: 8px;
 }
 
+// Banner side-bleed on real mobile. Category pages get #main-outlet padding
+// 0.5em (the body:not(...) rule above), so bleed -0.5em to match. Tag pages
+// (body.tags-page) are EXCLUDED from that rule and keep 1.5em — exclude them here
+// too so they fall through to common's <=700px rule (-1.5em / 1.5em). Tying the
+// exclusion to .tags-page keeps this in lockstep with the padding rule. The
+// body:not() selector (0,2,1) also outranks common's plain .tourli-banner (0,1,0).
+body:not(.tags-page) .tourli-banner {
+  margin-inline: -0.5em;
+}
+
+body:not(.tags-page) .tourli-banner__inner {
+  padding-inline: 0.5em;
+}
+
 .list-controls .nav-pills {
   li.navigation-toggle {
     border-radius: 8px;

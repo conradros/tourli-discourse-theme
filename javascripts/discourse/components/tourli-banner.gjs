@@ -115,7 +115,7 @@ export default class TourliBanner extends Component {
       >
         <div class="tourli-banner__texture"></div>
 
-        <div class="tourli-banner__inner container">
+        <div class="tourli-banner__inner">
           <div class="tourli-banner__body">
             <nav class="tourli-banner__crumbs">
               <a href="/">{{i18n (themePrefix "tourli.community")}}</a>
