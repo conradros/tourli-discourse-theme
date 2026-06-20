@@ -21,6 +21,7 @@ en:
     new_topic: "New topic"
     community: "Community"
     members:
+      one: "%{count} member"
       other: "%{count} members"
     creators_only: "creators only"
     categories_heading: "Categories"
@@ -38,8 +39,10 @@ en:
     all_destination_tags: "All destination tags"
     no_activity_yet: "No activity yet"
     topics:
+      one: "%{count} topic"
       other: "%{count} topics"
     replies:
+      one: "%{count} reply"
       other: "%{count} replies"
     active_this_week: "%{count} active this week"
     destinations_subhead: "Every thread in Trip Planning is tagged with a place. These are the tags with conversations going."

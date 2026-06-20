@@ -36,7 +36,7 @@ export default class TourliDestinations extends Component {
     <div class="tourli-destinations">
       <div class="tourli-destinations__head">
         <h1 class="tourli-destinations__title">{{i18n
-            "tourli.destinations"
+            (themePrefix "tourli.destinations")
           }}</h1>
         <p class="tourli-destinations__subhead">
           {{i18n (themePrefix "tourli.destinations_subhead")}}

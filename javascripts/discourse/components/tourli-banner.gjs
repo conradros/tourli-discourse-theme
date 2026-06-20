@@ -149,7 +149,7 @@ export default class TourliBanner extends Component {
               {{/if}}
               {{#if this.stats.week}}
                 <span>{{i18n
-                    "tourli.active_this_week"
+                    (themePrefix "tourli.active_this_week")
                     count=this.stats.week
                   }}</span>
               {{/if}}
