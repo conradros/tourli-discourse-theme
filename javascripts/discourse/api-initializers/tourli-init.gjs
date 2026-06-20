@@ -40,7 +40,8 @@ async function injectDestinationTagStyles() {
   style.textContent = `
 ${selector("")} {
   order: -1;
-  color: var(--tl-teal);
+  /* !important to win over Air's .discourse-tag { color: var(--primary) !important } */
+  color: var(--tl-teal) !important;
   font-weight: 600;
   background: color-mix(in srgb, var(--tl-teal) 12%, transparent);
 }

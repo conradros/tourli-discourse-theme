@@ -13,13 +13,16 @@
     padding: 0.15em 0.6em;
     border-radius: var(--tl-radius-pill);
     background: var(--tl-cream);
-    color: var(--tl-muted);
+
+    // Air sets `.discourse-tag { color: var(--primary) !important }` in
+    // common.scss, so our tag colors need !important to win.
+    color: var(--tl-muted) !important;
     font-size: 0.76rem;
     font-weight: 500;
     text-decoration: none;
 
     &:hover {
-      color: var(--tl-ink);
+      color: var(--tl-ink) !important;
       background: color-mix(in srgb, var(--tl-muted) 16%, transparent);
     }
   }

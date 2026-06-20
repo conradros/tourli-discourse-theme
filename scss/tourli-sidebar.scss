@@ -75,7 +75,7 @@ html .desktop-view .sidebar-footer-wrapper .sidebar-footer-container::before {
 
   // Active category gets a soft gold highlight (mock: Trip Planning).
   .sidebar-section-link.active {
-    background: rgb(217, 179, 77, 0.16);
+    background: color-mix(in srgb, var(--tl-gold) 16%, transparent);
 
     .sidebar-section-link-content-text {
       color: var(--tl-ink);

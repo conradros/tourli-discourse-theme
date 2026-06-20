@@ -247,5 +247,7 @@ ol.category-breadcrumb {
 }
 
 .list-controls .nav-pills .list-control-toggle-link-trigger {
-  color: var(--secondary);
+  // Tourli: was var(--secondary) (white), illegible on the cream page. The
+  // collapsed nav toggle reads as dark ink instead.
+  color: var(--tl-ink);
 }
